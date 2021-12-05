@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-nz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=320, initial-scale=1">
+<title>Online NZ Pass Verifier</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+<article class="page" id="home">
+  <ul>
+    <li id="link-privacy"><a id="btn-privacy" href="#about">Privacy Policy</a></li>
+    <li id="link-scan"><button id="btn-scan" data-target="scan">Scan</button></li>
+    <li id="link-manual"><a href="#manual">Manually enter code</a></li>
+    <li>Offline records never updated :(</li>
+    <li><a href="#about">What does this mean?</a></li>
+  </ul>
+  <footer>
+    <button class="btn btn-default" data-target="about">About Online NZ Pass Verifier</button>
+  </footer>
+</article>
+<article class="page" id="scan">
+  <div id="scanner">
+    <video id="qr-video"></video>
+    <div id="preview">
+      <div id="frame-1" class="frame"></div>
+      <div id="frame-2" class="frame"></div>
+      <div id="frame-3" class="frame"></div>
+      <div id="frame-4" class="frame"></div>
+    </div>
+    <button class="btn-flash" id="flash"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="13.5" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="8" d="m11.615 48.385 2.829-2.829m33.94 2.829-2.828-2.829m-33.94-33.94 2.828 2.828m33.94-2.829-2.828 2.829M4 30h4m48 0h-4M30 52v4m0-52v4"/></svg></button>
+    <select id="cameras" aria-label="Camera">
+      <option value="environment" selected>Rear camera</option>
+      <option value="user">Front camera</option>
+    </select>
+  </div>
+  <footer>
+    <button class="btn btn-primary" data-target="home">Cancel</button>
+  </footer>
+</article>
+<article class="page" id="manual">
+  <textarea id="qrcode" placeholder="NZCP:/1/2KCEVIQEIVVWK6JNGEASNICZAEP2KALYDZSGSZB2O5SWEOTOPJRXAL..."></textarea>
+  <footer>
+    <button class="btn-home" data-target="home" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 68"><path fill="currentColor" d="M32 0 0 27v34h23V32h20v29h23V27L34 0Z"/></svg></button>
+    <button id="verify" class="btn btn-primary">Verify</button>
+  </footer>
+</article>
+<article class="page" id="result">
+  <section id="banner">
+    <svg class="icon" id="cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><circle cx="64" cy="64" r="58" fill="none" stroke="#f41a0b" stroke-width="12"/><path fill="none" stroke="#f41a0b" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" d="m40 88 48-48m-48 0 48 48"/></svg>
+    <svg class="icon" id="tick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><circle cx="64" cy="64" r="58" fill="none" stroke="#29d353" stroke-width="12"/><path fill="none" stroke="#29d353" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" d="m35 67 17 17 40-40"/></svg>
+    <h2 id="status"></h2>
+  </section>
+  <p id="error"></p>
+  <dl id="info">
+    <dt>Last name</dt><dd data-path="vc.credentialSubject.familyName"><br></dd>
+    <dt>First name(s)</dt><dd data-path="vc.credentialSubject.givenName"><br></dd>
+    <dt>Date of birth</dt><dd data-path="vc.credentialSubject.dob" data-date="$D<s>/</s>$M<s>/</s>$Y"><br></dd><dd>dd / mm / yyyy</dd>
+    <dt>Issued on</dt><dd class="small" data-path="nbf" data-date="$D<s>/</s>$M<s>/</s>$Y"><br></dd><dd>dd / mm / yyyy</dd>
+    <dt>Valid until</dt><dd class="small" data-path="exp" data-date="$D<s>/</s>$M<s>/</s>$Y"><br></dd><dd>dd / mm / yyyy</dd>
+  </dl>
+  <footer>
+    <button class="btn-home" data-target="home" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 68"><path fill="currentColor" d="M32 0 0 27v34h23V32h20v29h23V27L34 0Z"/></svg></button>
+    <button class="btn btn-primary" data-target="scan">Scan again</button>
+  </footer>
+</article>
+<article class="page" id="about">
+  <h1>Online NZ Pass Verifier</h1>
+  <p>A vanilla JavaScript implementation of <a target="_blank" href="https://nzcp.covid19.health.nz/">Technical Specification v1</a>
+  that mimics the <a target="_blank" href="https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-vaccines/my-covid-record-proof-vaccination-status/nz-pass-verifier">official mobile app</a>.</p>
+  <h2>Sorry</h2>
+  <p>Unlike the MOH app, offline access has not been available.</p>
+  <h2>Privacy Policy</h2>
+  <p>It downloads a JWK set from <a target="_blank" href="https://nzcp.identity.health.nz/.well-known/did.json">nzcp.identity.health.nz</a> for verification.</p>
+  <p>No other data is sent out anywhere and verification is done on the client side.</p>
+  <h2>Open Source License</h2>
+  <h3><a target="_blank" href="https://github.com/nimiq/qr-scanner">qr-scanner</a> (MIT License)</h3>
+  <p>Copyright (c) 2017 Nimiq, danimoh</p>
+  <footer>
+    <button class="btn-home" data-target="home" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 68"><path fill="currentColor" d="M32 0 0 27v34h23V32h20v29h23V27L34 0Z"/></svg></button>
+  </footer>
+</article>
+<script src="qr-scanner/qr-scanner.umd.min.js"></script>
+<script src="verifier.js"></script>
+<script src="ui.js"></script>
+<script src="scanner.js"></script>
+</body>
+</html>
